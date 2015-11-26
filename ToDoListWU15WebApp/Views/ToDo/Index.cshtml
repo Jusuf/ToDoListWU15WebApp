@@ -24,6 +24,17 @@
     </tr>
 
 @foreach (var item in Model) {
+    
+    var activeClass = "glyphicon {0}";
+    if(item.Active)
+    {
+        activeClass = String.Format(activeClass, "glyphicon-thumbs-up");
+    }
+    else
+    {
+        activeClass = String.Format(activeClass, "glyphicon-thumbs-down");
+    }
+    
     <tr>
         <td>
             @Html.DisplayFor(modelItem => item.Description)
@@ -32,7 +43,9 @@
             @Html.DisplayFor(modelItem => item.Created)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Active)
+            <a href="@Url.Action("Togglestate", "ToDo", new {id = item.Id })">
+                <span class="@activeClass"></span>
+            </a>
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
